@@ -17,6 +17,9 @@ const providerClass = (provider) => {
   if (p.includes("open")) return "openai";
   if (p.includes("anthropic")) return "anthropic";
   if (p.includes("xai") || p.includes("x ai")) return "xai";
+  if (p.includes("google")) return "google";
+  if (p.includes("cursor")) return "cursor";
+  if (p.includes("github")) return "github";
   return "";
 };
 
@@ -96,9 +99,15 @@ function renderTable(rows, sources) {
   tbody.innerHTML = rows
     .map((p) => {
       const src = p.sourceId ? sources[p.sourceId] : null;
+      const multLabel =
+        p.multiplier == null
+          ? null
+          : Number.isInteger(p.multiplier)
+            ? `${p.multiplier}×`
+            : `${p.multiplier.toFixed(1)}×`;
       const mult =
-        p.multiplier != null
-          ? `<span class="multiplier">${p.multiplier}×</span>`
+        multLabel != null
+          ? `<span class="multiplier">${multLabel}</span>`
           : `<span class="na">—</span>`;
       const api =
         p.apiEqUSD != null

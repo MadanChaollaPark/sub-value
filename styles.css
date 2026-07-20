@@ -18,6 +18,7 @@
   --xai: #7ec8c8;
   --cursor: #a78bfa;
   --github: #8b9bb4;
+  --google: #7eb6ff;
   --shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
   --radius: 14px;
   --font-display: "Fraunces", Georgia, serif;
@@ -515,6 +516,9 @@ input[type="checkbox"]:focus-visible {
 .bar-fill.openai { background: linear-gradient(90deg, rgba(154, 208, 178, 0.3), var(--openai)); }
 .bar-fill.anthropic { background: linear-gradient(90deg, rgba(212, 162, 127, 0.3), var(--anthropic)); }
 .bar-fill.xai { background: linear-gradient(90deg, rgba(126, 200, 200, 0.3), var(--xai)); }
+.bar-fill.google { background: linear-gradient(90deg, rgba(126, 182, 255, 0.3), var(--google)); }
+.bar-fill.cursor { background: linear-gradient(90deg, rgba(167, 139, 250, 0.3), var(--cursor)); }
+.bar-fill.github { background: linear-gradient(90deg, rgba(139, 155, 180, 0.3), var(--github)); }
 
 .bar-sticker {
   position: absolute;

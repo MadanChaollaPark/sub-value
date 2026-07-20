@@ -20,6 +20,8 @@ Live comparison of sticker price vs **API-equivalent** dollars for Claude, ChatG
 
 These are **ceilings at full weekly utilization** with continuous coding tasks — not typical user spend.
 
+Also includes lower-confidence rows for **SuperGrok / Grok Build**, **Gemini**, **Cursor**, and **GitHub Copilot** (pass-through credit products ≈ 1–2× sticker).
+
 ## Run locally
 
 ```bash

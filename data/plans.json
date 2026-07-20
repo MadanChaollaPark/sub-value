@@ -1,7 +1,7 @@
 {
   "updatedAt": "2026-07-20",
   "title": "AI Coding Subscription API-Equivalent Value",
-  "methodology": "API-equivalent value = estimated cost of the same token usage if billed at public API list prices. SemiAnalysis figures come from exhausting each plan's weekly limits with long-horizon coding tasks (reported June 2026). Other rows are community reverse-engineers or official rate-based estimates. Values are ceilings at full utilization — most users burn far less.",
+  "methodology": "API-equivalent value = estimated cost of the same token usage if billed at public API list prices. SemiAnalysis (June 2026) bought each Anthropic/OpenAI plan, ran long-horizon coding tasks until weekly limits, and priced tokens at API rates — those rows are high-confidence ceilings at full utilization. Cursor and Copilot are near pass-through credit products (~1–2× sticker). SuperGrok/Grok and some Gemini rows are reverse-engineered or aggregator estimates (lower confidence). Most users burn far less than ceilings.",
   "sources": [
     {
       "id": "semianalysis",
@@ -13,7 +13,7 @@
       "id": "semianalysis-summary",
       "name": "SemiAnalysis summary (Vaibhav Sisinty)",
       "url": "https://x.com/VaibhavSisinty/status/2065048691791290691",
-      "note": "Widely circulated table of SemiAnalysis ceilings."
+      "note": "Widely circulated table: Claude $400/$2k/$8k · ChatGPT $700/$3.5k/$14k."
     },
     {
       "id": "techmeme",
@@ -38,6 +38,24 @@
       "name": "r/hermesagent SuperGrok reverse-engineer",
       "url": "https://www.reddit.com/r/hermesagent/comments/1utiwr7/super_grok_and_hermes/",
       "note": "Low-end SuperGrok weekly pool estimate from token %."
+    },
+    {
+      "id": "agentplans",
+      "name": "agentplans.fyi",
+      "url": "https://agentplans.fyi/",
+      "note": "Secondary aggregator for Gemini / Cursor / Grok midpoints."
+    },
+    {
+      "id": "github-copilot-billing",
+      "name": "GitHub Copilot usage-based billing",
+      "url": "https://docs.github.com/copilot/concepts/billing/usage-based-billing-for-individuals",
+      "note": "AI credits map near 1:1 to dollar spend."
+    },
+    {
+      "id": "cursor-pricing",
+      "name": "Cursor pricing explained",
+      "url": "https://www.vantage.sh/blog/cursor-pricing-explained",
+      "note": "Included agent usage then overage — pass-through economics."
     }
   ],
   "plans": [
@@ -87,7 +105,7 @@
       "sourceId": "semianalysis",
       "codingRelevant": true,
       "includes": "20× Pro usage · Claude Code",
-      "notes": "SemiAnalysis: up to ~$8,000/mo API-equivalent. Often cited as ~$7,800 revenue opportunity loss for Anthropic."
+      "notes": "SemiAnalysis: up to ~$8,000/mo API-equivalent. Often cited as ~$7,800 revenue opportunity loss for Anthropic at full use."
     },
     {
       "id": "chatgpt-plus",
@@ -119,7 +137,7 @@
       "sourceId": "semianalysis",
       "codingRelevant": true,
       "includes": "Higher Codex / ChatGPT usage windows",
-      "notes": "SemiAnalysis ceiling. Matches common 'Codex $100 plan' power-user tier framing."
+      "notes": "SemiAnalysis ceiling. Common 'Codex $100 plan' power-user tier. CodexBar users often see multi-hundred $ API-eq in days of heavy use."
     },
     {
       "id": "chatgpt-pro-20x",
@@ -143,15 +161,15 @@
       "product": "SuperGrok / Grok Build",
       "planName": "SuperGrok",
       "stickerUSD": 30,
-      "apiEqUSD": 90,
+      "apiEqUSD": 160,
       "apiEqLowUSD": 10,
       "apiEqHighUSD": 2000,
-      "multiplier": 3,
+      "multiplier": 5.3,
       "confidence": "low",
       "sourceId": "hermes-reddit",
       "codingRelevant": true,
       "includes": "Grok Build CLI, shared weekly pool (Chat/Imagine/Voice/Build)",
-      "notes": "No official $ pool. Low end ~$10/mo reverse-engineered from Hermes %; mid ~$80–90 DIY Build estimates; high $700–2,000 is @grok-style framing, not a measured ceiling. Agentic Build often exhausts the week in hours, not all-day every day."
+      "notes": "No official $ pool. Low ~$10/mo reverse-engineer; mid ~$160 aggregators; high $700–2,000 @grok-style framing. Agentic Build often exhausts the week in hours of heavy use."
     },
     {
       "id": "supergrok-heavy",
@@ -159,15 +177,63 @@
       "product": "SuperGrok / Grok Build",
       "planName": "SuperGrok Heavy",
       "stickerUSD": 300,
-      "apiEqUSD": 3000,
-      "apiEqLowUSD": 500,
+      "apiEqUSD": 1600,
+      "apiEqLowUSD": 550,
       "apiEqHighUSD": 12000,
-      "multiplier": 10,
+      "multiplier": 5.3,
       "confidence": "low",
       "sourceId": "xai-faq",
       "codingRelevant": true,
       "includes": "Highest Grok weekly pool · Grok Build · multi-agent modes",
-      "notes": "xAI does not publish pool $. Primary value is much larger weekly allowance than SuperGrok; public reverse-engineers range from hundreds to multi-thousand $/mo. Treat as directional only."
+      "notes": "xAI does not publish pool $. Midpoint ~$1.6k from aggregators; some reverse-engineers claim multi-thousand $/week — unverified. Directional only."
+    },
+    {
+      "id": "google-ai-pro",
+      "provider": "Google",
+      "product": "Gemini",
+      "planName": "AI Pro",
+      "stickerUSD": 20,
+      "apiEqUSD": 110,
+      "apiEqLowUSD": 90,
+      "apiEqHighUSD": 150,
+      "multiplier": 5.5,
+      "confidence": "medium",
+      "sourceId": "agentplans",
+      "codingRelevant": true,
+      "includes": "Gemini app, higher Antigravity / Code Assist vs free",
+      "notes": "Not in SemiAnalysis drain study. Community/aggregator midpoint."
+    },
+    {
+      "id": "google-ai-ultra-5x",
+      "provider": "Google",
+      "product": "Gemini",
+      "planName": "AI Ultra 5×",
+      "stickerUSD": 100,
+      "apiEqUSD": 550,
+      "apiEqLowUSD": 450,
+      "apiEqHighUSD": 700,
+      "multiplier": 5.5,
+      "confidence": "medium",
+      "sourceId": "agentplans",
+      "codingRelevant": true,
+      "includes": "5× vs AI Pro · Antigravity / coding quotas",
+      "notes": "Not SemiAnalysis-measured. Aggregator estimate."
+    },
+    {
+      "id": "google-ai-ultra-20x",
+      "provider": "Google",
+      "product": "Gemini",
+      "planName": "AI Ultra 20×",
+      "stickerUSD": 200,
+      "apiEqUSD": 2200,
+      "apiEqLowUSD": 1800,
+      "apiEqHighUSD": 2800,
+      "multiplier": 11,
+      "confidence": "low",
+      "sourceId": "agentplans",
+      "codingRelevant": true,
+      "includes": "Top Gemini consumer tier",
+      "notes": "Scaled estimate from 5× tier; no public drain experiment."
     },
     {
       "id": "cursor-pro",
@@ -175,15 +241,47 @@
       "product": "Cursor",
       "planName": "Pro",
       "stickerUSD": 20,
-      "apiEqUSD": null,
-      "apiEqLowUSD": null,
-      "apiEqHighUSD": null,
-      "multiplier": null,
-      "confidence": "low",
-      "sourceId": null,
+      "apiEqUSD": 20,
+      "apiEqLowUSD": 20,
+      "apiEqHighUSD": 280,
+      "multiplier": 1,
+      "confidence": "medium",
+      "sourceId": "cursor-pricing",
       "codingRelevant": true,
-      "includes": "IDE agent, included usage + usage-based overage",
-      "notes": "Not in SemiAnalysis coding-drain study. Value depends on which frontier models you route; often hybrid seat + metered tokens — not a pure API-equivalent ceiling."
+      "includes": "IDE agent · included usage + overage",
+      "notes": "Pass-through economics: included agent credits ≈ sticker, then usage-based. High band reflects soft-limit anecdotes, not official policy."
+    },
+    {
+      "id": "cursor-pro-plus",
+      "provider": "Cursor",
+      "product": "Cursor",
+      "planName": "Pro+",
+      "stickerUSD": 60,
+      "apiEqUSD": 70,
+      "apiEqLowUSD": 60,
+      "apiEqHighUSD": 90,
+      "multiplier": 1.17,
+      "confidence": "medium",
+      "sourceId": "cursor-pricing",
+      "codingRelevant": true,
+      "includes": "~3× Pro agent usage",
+      "notes": "Still near 1× economics vs lab flat-rate plans."
+    },
+    {
+      "id": "cursor-ultra",
+      "provider": "Cursor",
+      "product": "Cursor",
+      "planName": "Ultra",
+      "stickerUSD": 200,
+      "apiEqUSD": 400,
+      "apiEqLowUSD": 350,
+      "apiEqHighUSD": 450,
+      "multiplier": 2,
+      "confidence": "medium",
+      "sourceId": "agentplans",
+      "codingRelevant": true,
+      "includes": "Power multi-model agent tier",
+      "notes": "Far lower leverage than Claude Max / ChatGPT Pro $200 lab plans."
     },
     {
       "id": "github-copilot-pro",
@@ -191,15 +289,47 @@
       "product": "Copilot",
       "planName": "Pro",
       "stickerUSD": 10,
-      "apiEqUSD": null,
-      "apiEqLowUSD": null,
-      "apiEqHighUSD": null,
-      "multiplier": null,
-      "confidence": "low",
-      "sourceId": null,
+      "apiEqUSD": 15,
+      "apiEqLowUSD": 10,
+      "apiEqHighUSD": 20,
+      "multiplier": 1.5,
+      "confidence": "medium",
+      "sourceId": "github-copilot-billing",
       "codingRelevant": true,
-      "includes": "Completions + Copilot Chat / agent features (plan-dependent)",
-      "notes": "Not measured by SemiAnalysis. Bundle product with different economics than Claude Code / Codex."
+      "includes": "Completions + chat/agent (plan-dependent)",
+      "notes": "AI credits map near 1 credit = $0.01. Near pass-through, not lab subsidy."
+    },
+    {
+      "id": "github-copilot-pro-plus",
+      "provider": "GitHub",
+      "product": "Copilot",
+      "planName": "Pro+",
+      "stickerUSD": 39,
+      "apiEqUSD": 70,
+      "apiEqLowUSD": 60,
+      "apiEqHighUSD": 80,
+      "multiplier": 1.8,
+      "confidence": "medium",
+      "sourceId": "github-copilot-billing",
+      "codingRelevant": true,
+      "includes": "Higher AI credit pool · premium models",
+      "notes": "Official credit allotments ≈ $60–80 of model usage."
+    },
+    {
+      "id": "github-copilot-max",
+      "provider": "GitHub",
+      "product": "Copilot",
+      "planName": "Max",
+      "stickerUSD": 100,
+      "apiEqUSD": 200,
+      "apiEqLowUSD": 180,
+      "apiEqHighUSD": 220,
+      "multiplier": 2,
+      "confidence": "medium",
+      "sourceId": "github-copilot-billing",
+      "codingRelevant": true,
+      "includes": "Top individual Copilot credit pool",
+      "notes": "Still low leverage vs Anthropic/OpenAI $100 flat-rate coding plans."
     }
   ]
 }
