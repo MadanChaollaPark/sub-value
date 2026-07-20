@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sub Value — AI coding subscriptions vs API-equivalent dollars</title>
+  <meta name="description" content="What each AI coding subscription is worth at public API rates. SemiAnalysis ceilings for Claude & ChatGPT/Codex, plus Grok Build estimates." />
+  <meta property="og:title" content="Sub Value — subscription vs API-equivalent" />
+  <meta property="og:description" content="SemiAnalysis found ChatGPT Pro can deliver up to $14k/mo of API-equivalent tokens for $200. Compare every major coding plan." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="brand">
+      <span class="brand-mark">§</span>
+      <div>
+        <p class="eyebrow">Coding agent economics</p>
+        <h1>Sub Value</h1>
+      </div>
+    </div>
+    <p class="lede">
+      What each AI coding subscription is <em>worth</em> if the same usage were billed at public API rates.
+      SemiAnalysis ceilings for Claude &amp; ChatGPT/Codex; directional estimates for SuperGrok / Grok Build.
+    </p>
+    <div class="header-meta">
+      <span id="updated-label">Data as of —</span>
+      <a class="ghost-link" href="#methodology">Methodology</a>
+      <a class="ghost-link" href="#sources">Sources</a>
+      <a class="ghost-link" href="https://github.com/MadanChaollaPark/sub-value" id="repo-link">GitHub</a>
+    </div>
+  </header>
+
+  <section class="hero-stats" id="hero-stats" aria-label="Headline figures">
+    <!-- filled by JS -->
+  </section>
+
+  <section class="controls" aria-label="Filters">
+    <div class="control-group">
+      <label for="provider-filter">Provider</label>
+      <select id="provider-filter">
+        <option value="all">All</option>
+      </select>
+    </div>
+    <div class="control-group">
+      <label for="sort-by">Sort</label>
+      <select id="sort-by">
+        <option value="multiplier">Multiplier (high → low)</option>
+        <option value="apiEq">API-equivalent $ (high → low)</option>
+        <option value="sticker">Sticker price (low → high)</option>
+        <option value="provider">Provider</option>
+      </select>
+    </div>
+    <div class="control-group check">
+      <label>
+        <input type="checkbox" id="coding-only" checked />
+        Coding-relevant only
+      </label>
+    </div>
+    <div class="control-group check">
+      <label>
+        <input type="checkbox" id="measured-only" />
+        SemiAnalysis measured only
+      </label>
+    </div>
+  </section>
+
+  <section class="table-wrap" aria-label="Plan comparison">
+    <table class="plans-table">
+      <thead>
+        <tr>
+          <th>Plan</th>
+          <th class="num">You pay</th>
+          <th class="num">API-eq (primary)</th>
+          <th class="num">Range</th>
+          <th class="num">× multiplier</th>
+          <th>Confidence</th>
+          <th>Source</th>
+        </tr>
+      </thead>
+      <tbody id="plans-body"></tbody>
+    </table>
+  </section>
+
+  <section class="cards" id="plan-cards" aria-label="Plan cards">
+    <!-- filled by JS -->
+  </section>
+
+  <section class="chart-section">
+    <div class="section-head">
+      <h2>Subsidy bar</h2>
+      <p>Width = API-equivalent dollars at full utilization. Gold tip = sticker price (almost invisible at this scale for top plans).</p>
+    </div>
+    <div id="subsidy-chart" class="subsidy-chart"></div>
+  </section>
+
+  <section class="callout">
+    <h2>Read this first</h2>
+    <ul>
+      <li><strong>Ceilings, not typical bills.</strong> SemiAnalysis exhausted weekly limits with continuous coding. Most people use a fraction of the pool.</li>
+      <li><strong>API-equivalent ≠ lab cost.</strong> List API prices are not the same as a lab’s marginal cost of serving a subscription token.</li>
+      <li><strong>Harness matters.</strong> Claude Code vs Codex vs Cursor change tokens per task. SemiAnalysis later noted Codex may be more token-efficient than Claude Code.</li>
+      <li><strong>Grok is opaque.</strong> SuperGrok shows a shared weekly <em>%</em> pool with no official dollar size — numbers are reverse-engineered and low confidence.</li>
+    </ul>
+  </section>
+
+  <section id="methodology" class="prose">
+    <h2>Methodology</h2>
+    <p id="methodology-text"></p>
+    <h3>SemiAnalysis experiment (June 2026)</h3>
+    <p>
+      SemiAnalysis purchased each Anthropic and OpenAI subscription tier, ran long-horizon coding tasks until
+      weekly limits were exhausted, then priced the tokens at public API rates. Widely reported ceilings:
+    </p>
+    <ul class="tight">
+      <li>Claude Pro $20 → <strong>$400</strong></li>
+      <li>Claude Max 5× $100 → <strong>$2,000</strong></li>
+      <li>Claude Max 20× $200 → <strong>$8,000</strong></li>
+      <li>ChatGPT Plus $20 → <strong>$700</strong></li>
+      <li>ChatGPT Pro 5× $100 → <strong>$3,500</strong></li>
+      <li>ChatGPT Pro 20× $200 → <strong>$14,000</strong></li>
+    </ul>
+    <p>
+      Prior market belief was roughly “$200 plan ≈ $2,000 of tokens.” SemiAnalysis found several times that
+      at full utilization — which is why top tiers look like massive compute subsidies.
+    </p>
+    <h3>Grok / SuperGrok</h3>
+    <p>
+      xAI bills SuperGrok as a shared weekly compute pool (Chat, Imagine, Voice, Build) displayed as percent used.
+      Official docs do not publish a dollar size. Low estimates reverse-engineer token % against Grok 4.5 list rates
+      ($2 / $6 per 1M short context). High figures are informal “value framing,” not drain experiments.
+      Extra Usage Credits after the pool are priced at higher “standard rates” than included usage.
+    </p>
+  </section>
+
+  <section id="sources" class="prose">
+    <h2>Sources</h2>
+    <ul id="sources-list"></ul>
+  </section>
+
+  <footer class="site-footer">
+    <p>
+      Not affiliated with SemiAnalysis, Anthropic, OpenAI, or xAI.
+      Figures can change when labs retune rate limits or API prices.
+    </p>
+    <p class="mono">sub-value · open data in <a href="data/plans.json">data/plans.json</a></p>
+  </footer>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>
